@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GST Invoice - Editable & Validated</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="invoice-box">
+        <h1 class="heading">Alpha Electronics - GST TAX INVOICE</h1>
+
+        <table class="info-table">
+            <tr>
+                <td><strong>Sold By:</strong> Alpha Electronics</td>
+                <td><strong>Seller GSTIN:</strong> 07ABCDE1234F1Z5</td>
+            </tr>
+            <tr>
+                <td><strong>Seller Address:</strong> New Delhi, India</td>
+                <td><strong>Order ID:</strong> <span id="orderId">AutoGen1234</span></td>
+            </tr>
+            <tr>
+                <td><strong>Invoice No:</strong> <span id="invoiceNo">INV2507192421</span></td>
+                <td><strong>Date & Time:</strong> <span id="dateTime"></span></td>
+            </tr>
+        </table>
+
+        <table class="info-table editable-info">
+            <tr>
+                <td><strong>Buyer Name:</strong></td>
+                <td contenteditable="true" data-placeholder="Enter Buyer Name" class="editable alphaOnly"
+                    id="buyerName"></td>
+            </tr>
+            <tr>
+                <td><strong>Buyer GSTIN:</strong></td>
+                <td contenteditable="true" data-placeholder="Enter Buyer GSTIN" class="editable alphaNum"
+                    id="buyerGSTIN"></td>
+            </tr>
+            <tr>
+                <td><strong>Buyer Address:</strong></td>
+                <td contenteditable="true" data-placeholder="Enter Buyer Address" class="editable" id="buyerAddress">
+                </td>
+            </tr>
+        </table>
+
+        <label>
+            <input type="checkbox" id="isIGST" onchange="calculateGrandTotal()" />
+            Interstate Sale (IGST)
+        </label>
+
+        <!-- <table class="item-table" id="itemsTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Description</th>
+                    <th>HSN/SAC</th>
+                    <th>Qty</th>
+                    <th>Rate (₹)</th>
+                    <th>CGST %</th>
+                    <th>SGST %</th>
+                    <th>Taxable Value (₹)</th>
+                    <th>CGST Amt (₹)</th>
+                    <th>SGST Amt (₹)</th>
+                    <th>Total (₹)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="itemsBody">
+                <tr>
+                    <td class="serial">1</td>
+                    <td contenteditable="true" class="editable"></td>
+                    <td contenteditable="true" class="editable alphaNum hsn"></td>
+                    <td contenteditable="true" class="editable numOnly qty"></td>
+                    <td contenteditable="true" class="editable numOnly rate"></td>
+                    <td contenteditable="true" class="editable numOnly cgst"></td>
+                    <td contenteditable="true" class="editable numOnly sgst"></td>
+                    <td class="taxableValue"></td>
+                    <td class="cgstAmount"></td>
+                    <td class="sgstAmount"></td>
+                    <td class="totalAmount"></td>
+                    <td><button type="button" onclick="removeItem(this)">Remove</button></td>
+                </tr>
+            </tbody>
+        </table> -->
+
+        <table class="item-table" id="itemsTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Description</th>
+                    <th>HSN/SAC</th>
+                    <th>Qty</th>
+                    <th>Rate (₹)</th>
+                    <th>CGST %</th>
+                    <th>SGST %</th>
+                    <th>Taxable Value (₹)</th>
+                    <th>CGST Amt (₹)</th>
+                    <th>SGST Amt (₹)</th>
+                    <th>Total (₹)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="itemsBody">
+                <tr>
+                    <td class="serial">1</td>
+                    <td><input type="text" class="editable-input desc" placeholder="Description"></td>
+                    <td><input type="text" class="editable-input hsn alphaNum" placeholder="HSN/SAC"></td>
+                    <td><input type="number" class="editable-input qty numOnly" value="1"></td>
+                    <td><input type="number" class="editable-input rate numOnly" value="0"></td>
+                    <td><input type="number" class="editable-input cgst numOnly" value="9"></td>
+                    <td><input type="number" class="editable-input sgst numOnly" value="9"></td>
+                    <td class="taxableValue">0.00</td>
+                    <td class="cgstAmount">0.00</td>
+                    <td class="sgstAmount">0.00</td>
+                    <td class="totalAmount">0.00</td>
+                    <td><button type="button" onclick="removeItem(this)">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <button type="button" onclick="addItem()">+ Add Item</button>
+
+        <div class="totals-inputs">
+            <label>Discount (₹): <input type="text" id="discount" class="numOnly" value="0" /></label>
+            <label>Shipping (₹): <input type="text" id="shipping" class="numOnly" value="0" /></label>
+        </div>
+
+        <div class="total-line">
+            <strong>Grand Total (₹): <span id="grandTotal">0.00</span></strong>
+        </div>
+
+        <button type="button" onclick="calculateGrandTotal()">Calculate Grand Total</button>
+        <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <button onclick="downloadPDF()">⬇️ Download PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

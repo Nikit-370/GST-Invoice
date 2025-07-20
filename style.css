@@ -1,0 +1,123 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+}
+
+.invoice-box {
+  background: white;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.info-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+.info-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 50%;
+  font-weight: bold;
+}
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.item-table th,
+.item-table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.item-table th {
+  background: #f0f0f0;
+}
+
+.editable:empty:before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  font-style: italic;
+}
+
+.editable {
+  outline: none;
+  min-width: 60px;
+}
+
+.totals-inputs {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.totals-inputs input {
+  width: 100px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.total-line {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.print-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.print-btn:hover {
+  background: #45a049;
+}
+
+
+.editable-input {
+  width: 100%;
+  min-width: 80px;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+td input[type="text"],
+td input[type="number"] {
+  height: 34px;
+}
+
+td {
+  vertical-align: middle;
+}
