@@ -1,3 +1,4 @@
+/* Base Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f9f9f9;
@@ -22,6 +23,7 @@ body {
   text-transform: uppercase;
 }
 
+/* Info Table */
 .info-table {
   width: 100%;
   margin-bottom: 20px;
@@ -35,10 +37,12 @@ body {
   font-weight: bold;
 }
 
+/* Items Table */
 .item-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  table-layout: auto;
 }
 
 .item-table th,
@@ -47,23 +51,51 @@ body {
   padding: 8px 10px;
   text-align: center;
   font-size: 14px;
+  vertical-align: middle;
 }
 
 .item-table th {
   background: #f0f0f0;
 }
 
-.editable:empty:before {
-  content: attr(data-placeholder);
-  color: #aaa;
-  font-style: italic;
+/* Input Styling */
+.editable-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 34px;
 }
 
-.editable {
-  outline: none;
-  min-width: 60px;
+/* Shrink small inputs */
+.shrink-input {
+  width: 50px !important;
+  max-width: 60px;
+  min-width: 50px;
+  font-size: 13px;
+  text-align: right;
+  padding: 4px;
 }
 
+/* HSN Input */
+.hsn {
+  width: 90px !important;
+  min-width: 80px !important;
+  max-width: 100px !important;
+  text-align: center;
+}
+
+/* Description input wider */
+.expand-description {
+  width: 100%;
+  min-width: 300px;
+  max-width: 100%;
+  font-size: 14px;
+}
+
+/* Totals & Buttons */
 .totals-inputs {
   display: flex;
   justify-content: flex-end;
@@ -102,22 +134,56 @@ body {
   background: #45a049;
 }
 
+/* Responsive Table Scroll (Optional for Mobile) */
+@media screen and (max-width: 768px) {
+  .item-table {
+    overflow-x: auto;
+    display: block;
+  }
 
-.editable-input {
+  .item-table thead,
+  .item-table tbody,
+  .item-table th,
+  .item-table td,
+  .item-table tr {
+    display: block;
+  }
+
+  .item-table td {
+    text-align: left;
+  }
+}
+
+.rate-field {
+  width: 100px;
+  /* Adjust as needed */
+  min-width: 100px;
+  max-width: 160px;
+  text-align: right;
+}
+
+
+/* Expands only description */
+.expand-description {
   width: 100%;
-  min-width: 80px;
+  min-width: 150px;
+  flex-grow: 2;
+}
+
+/* Shrinks HSN, Qty, CGST, SGST */
+.shrink-input {
+  max-width: 70px;
+  width: 100%;
+}
+
+/* Wider rate field (for large price items like iPhones) */
+.wide-rate {
+  min-width: 100px;
+  /* font-weight: bold; */
+}
+
+/* Optional if using flex/table hybrid layout */
+td input.editable-input {
   box-sizing: border-box;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-td input[type="text"],
-td input[type="number"] {
-  height: 34px;
-}
-
-td {
-  vertical-align: middle;
+  padding: 4px 6px;
 }
