@@ -40,50 +40,21 @@
             </tr>
             <tr>
                 <td><strong>Buyer Address:</strong></td>
-                <td contenteditable="true" data-placeholder="Enter Buyer Address" class="editable" id="buyerAddress">
+                <td contenteditable="true" data-placeholder="Enter Buyer Address" class="editable large-editable-box"
+                    id="buyerAddress">
                 </td>
             </tr>
         </table>
 
         <label>
-            <input type="checkbox" id="isIGST" onchange="calculateGrandTotal()" />
+            <input type="checkbox" id="isIGST" onchange="toggleIGST()" />
             Interstate Sale (IGST)
         </label>
+        <label>
+            <input type="checkbox" id="toggleHSN" checked onchange="toggleHSN()" />
+            Show HSN/SAC
+        </label>
 
-        <!-- <table class="item-table" id="itemsTable">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Description</th>
-                    <th>HSN/SAC</th>
-                    <th>Qty</th>
-                    <th>Rate (₹)</th>
-                    <th>CGST %</th>
-                    <th>SGST %</th>
-                    <th>Taxable Value (₹)</th>
-                    <th>CGST Amt (₹)</th>
-                    <th>SGST Amt (₹)</th>
-                    <th>Total (₹)</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="itemsBody">
-                <tr>
-                    <td class="serial">1</td>
-                    <td contenteditable="true" class="editable"></td>
-                    <td contenteditable="true" class="editable alphaNum hsn"></td>
-                    <td contenteditable="true" class="editable numOnly qty"></td>
-                    <td contenteditable="true" class="editable numOnly rate"></td>
-                    <td contenteditable="true" class="editable numOnly cgst"></td>
-                    <td contenteditable="true" class="editable numOnly sgst"></td>
-                    <td class="taxableValue"></td>
-                    <td class="cgstAmount"></td>
-                    <td class="sgstAmount"></td>
-                    <td class="totalAmount"></td>
-                    <td><button type="button" onclick="removeItem(this)">Remove</button></td>
-                </tr>
-            </tbody>
-        </table> -->
 
         <table class="item-table" id="itemsTable">
             <thead>
@@ -93,11 +64,13 @@
                     <th>HSN/SAC</th>
                     <th>Qty</th>
                     <th>Rate (₹)</th>
-                    <th>CGST %</th>
-                    <th>SGST %</th>
+                    <th class="cgst-col">CGST %</th>
+                    <th class="sgst-col">SGST %</th>
+                    <th class="igst-col" style="display: none;">IGST %</th>
                     <th>Taxable Value (₹)</th>
-                    <th>CGST Amt (₹)</th>
-                    <th>SGST Amt (₹)</th>
+                    <th class="cgst-col">CGST Amt (₹)</th>
+                    <th class="sgst-col">SGST Amt (₹)</th>
+                    <th class="igst-col" style="display: none;">IGST Amt (₹)</th>
                     <th>Total (₹)</th>
                     <th>Action</th>
                 </tr>
@@ -105,21 +78,26 @@
             <tbody id="itemsBody">
                 <tr>
                     <td class="serial">1</td>
-                    <td><input type="text" class="editable-input desc" placeholder="Description"></td>
-                    <td><input type="text" class="editable-input hsn alphaNum" placeholder="HSN/SAC"></td>
-                    <td><input type="number" class="editable-input qty numOnly" value="1"></td>
-                    <td><input type="number" class="editable-input rate numOnly" value="0"></td>
-                    <td><input type="number" class="editable-input cgst numOnly" value="9"></td>
-                    <td><input type="number" class="editable-input sgst numOnly" value="9"></td>
+                    <td><input type="text" class="editable-input desc expand-description" placeholder="Description">
+                    </td>
+                    <td><input type="text" class="editable-input hsn alphaNum medium-input" placeholder="HSN/SAC"></td>
+                    <td><input type="number" class="editable-input qty numOnly shrink-input" value="1"></td>
+                    <td><input type="number" class="editable-input rate-field numOnly" value="0"></td>
+                    <td class="cgst-col"><input type="number" class="editable-input cgst numOnly shrink-input"
+                            value="9"></td>
+                    <td class="sgst-col"><input type="number" class="editable-input sgst numOnly shrink-input"
+                            value="9"></td>
+                    <td class="igst-col" style="display: none;"><input type="number"
+                            class="editable-input igst numOnly shrink-input" value="18"></td>
                     <td class="taxableValue">0.00</td>
-                    <td class="cgstAmount">0.00</td>
-                    <td class="sgstAmount">0.00</td>
+                    <td class="cgstAmount cgst-col">0.00</td>
+                    <td class="sgstAmount sgst-col">0.00</td>
+                    <td class="igstAmount igst-col" style="display: none;">0.00</td>
                     <td class="totalAmount">0.00</td>
                     <td><button type="button" onclick="removeItem(this)">Remove</button></td>
                 </tr>
             </tbody>
         </table>
-
 
         <button type="button" onclick="addItem()">+ Add Item</button>
 
