@@ -1,3 +1,9 @@
+window.onload = () => {
+    toggleHSN();     // Hides HSN if checkbox is unchecked
+    toggleIGSTView();
+}
+
+
 // Auto set current date & time
 document.getElementById("dateTime").textContent = new Date().toLocaleString();
 
@@ -16,6 +22,7 @@ function addItem() {
         <td class="cgst-col"><input type="number" class="editable-input cgst numOnly shrink-input" value="9"></td>
         <td class="sgst-col"><input type="number" class="editable-input sgst numOnly shrink-input" value="9"></td>
         <td class="igst-col" style="display: none;"><input type="number" class="editable-input igst numOnly shrink-input" value="18"></td>
+        <td><input type="date" class="editable-input warranty-date" /></td>
         <td class="taxableValue">0.00</td>
         <td class="cgstAmount cgst-col">0.00</td>
         <td class="sgstAmount sgst-col">0.00</td>
@@ -26,9 +33,9 @@ function addItem() {
 
     addInputListeners(row);
     toggleIGSTView();
+    toggleHSN(); // <-- Ensure HSN column visibility matches checkbox
     calculateGrandTotal();
 }
-
 
 // Remove item row
 function removeItem(button) {
@@ -91,29 +98,34 @@ function calculateGrandTotal() {
 
 // Add input listeners to row inputs
 function addInputListeners(row) {
-    const inputs = row.querySelectorAll("input.qty, input.rate, input.cgst, input.sgst, input.igst");
+    const inputs = row.querySelectorAll("input");
     inputs.forEach(input => {
         input.addEventListener("input", calculateGrandTotal);
     });
 }
 
+
 // Toggle IGST view based on checkbox
 function toggleIGSTView() {
     const isIGST = document.getElementById("isIGST").checked;
-    document.querySelectorAll(".cgst-col, .sgst-col").forEach(el => {
-        el.style.display = isIGST ? "none" : "";
-    });
+
     document.querySelectorAll(".igst-col").forEach(el => {
         el.style.display = isIGST ? "" : "none";
     });
+    document.querySelectorAll(".cgst-col, .sgst-col").forEach(el => {
+        el.style.display = isIGST ? "none" : "";
+    });
 }
+
+
 
 function toggleHSN() {
-    const isChecked = document.getElementById('toggleHSN').checked
-    const hsnColumns = document.querySelectorAll('th:nth-child(3), td:nth-child(3)')
-    hsnColumns.forEach(col => col.style.display = isChecked ? '' : 'none')
+    const isChecked = document.getElementById('hsnToggle').checked;
+    const hsnElements = document.querySelectorAll('th:nth-child(3), td:nth-child(3)');
+    hsnElements.forEach(el => {
+        el.style.display = isChecked ? '' : 'none';
+    });
 }
-
 
 // PDF Download
 function downloadPDF() {
@@ -145,15 +157,30 @@ document.addEventListener("input", function (e) {
 
 // Initialize listeners on page load
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("#itemsBody tr").forEach(addInputListeners);
+    // Apply listeners to all existing item rows
+    const existingRows = document.querySelectorAll("#itemsBody tr");
+    existingRows.forEach(row => addInputListeners(row));
 
-    document.getElementById("discount").addEventListener("input", calculateGrandTotal);
-    document.getElementById("shipping").addEventListener("input", calculateGrandTotal);
-    document.getElementById("isIGST").addEventListener("change", () => {
-        toggleIGSTView();
-        calculateGrandTotal();
+    // Listen for global inputs
+    ["discount", "shipping"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("input", calculateGrandTotal);
     });
+
+    const igstToggle = document.getElementById("isIGST");
+    if (igstToggle) {
+        igstToggle.addEventListener("change", () => {
+            toggleIGSTView();
+            calculateGrandTotal();
+        });
+    }
 
     toggleIGSTView();
     calculateGrandTotal();
+});
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    toggleHSN() // This will hide the HSN column on initial load
+    toggleIGSTView() // Also ensures IGST/CGST toggle applies correctly
 });
