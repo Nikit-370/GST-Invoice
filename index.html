@@ -19,10 +19,16 @@
             </tr>
             <tr>
                 <td><strong>Seller Address:</strong> New Delhi, India</td>
-                <td><strong>Order ID:</strong> <span id="orderId">AutoGen1234</span></td>
+                <td>
+                    <strong>Order ID:</strong>
+                    <input type="text" id="orderId" placeholder="Enter Order ID" />
+                </td>
             </tr>
             <tr>
-                <td><strong>Invoice No:</strong> <span id="invoiceNo">INV2507192421</span></td>
+                <td>
+                    <strong>Invoice No:</strong>
+                    <input type="text" id="invoiceNo" placeholder="Enter Invoice Number" />
+                </td>
                 <td><strong>Date & Time:</strong> <span id="dateTime"></span></td>
             </tr>
         </table>
@@ -32,6 +38,11 @@
                 <td><strong>Buyer Name:</strong></td>
                 <td contenteditable="true" data-placeholder="Enter Buyer Name" class="editable alphaOnly"
                     id="buyerName"></td>
+            </tr>
+            <tr>
+                <td><strong>Mobile Number:</strong></td>
+                <td contenteditable="true" data-placeholder="Enter Mobile Number" class="editable numOnly"
+                    id="buyerMobile"></td>
             </tr>
             <tr>
                 <td><strong>Buyer GSTIN:</strong></td>
@@ -46,14 +57,12 @@
             </tr>
         </table>
 
-        <label>
-            <input type="checkbox" id="isIGST" onchange="toggleIGST()" />
-            Interstate Sale (IGST)
-        </label>
-        <label>
-            <input type="checkbox" id="toggleHSN" checked onchange="toggleHSN()" />
-            Show HSN/SAC
-        </label>
+        <div>
+            <label class="no-print"><input type="checkbox" id="hsnToggle" onchange="toggleHSN()"> Show HSN/SAC</label>
+            <label class="no-print"><input type="checkbox" id="isIGST"
+                    onchange="toggleIGSTView(); calculateGrandTotal()"> Apply
+                IGST</label>
+        </div>
 
 
         <table class="item-table" id="itemsTable">
@@ -67,6 +76,7 @@
                     <th class="cgst-col">CGST %</th>
                     <th class="sgst-col">SGST %</th>
                     <th class="igst-col" style="display: none;">IGST %</th>
+                    <th>Warranty Date</th>
                     <th>Taxable Value (₹)</th>
                     <th class="cgst-col">CGST Amt (₹)</th>
                     <th class="sgst-col">SGST Amt (₹)</th>
@@ -89,17 +99,18 @@
                             value="9"></td>
                     <td class="igst-col" style="display: none;"><input type="number"
                             class="editable-input igst numOnly shrink-input" value="18"></td>
+                    <td><input type="date" class="editable-input warranty-date" /></td>
                     <td class="taxableValue">0.00</td>
                     <td class="cgstAmount cgst-col">0.00</td>
                     <td class="sgstAmount sgst-col">0.00</td>
                     <td class="igstAmount igst-col" style="display: none;">0.00</td>
                     <td class="totalAmount">0.00</td>
-                    <td><button type="button" onclick="removeItem(this)">Remove</button></td>
+                    <td><button class="no-print" type="button" onclick="removeItem(this)">Remove</button></td>
                 </tr>
             </tbody>
         </table>
 
-        <button type="button" onclick="addItem()">+ Add Item</button>
+        <button class="no-print" type="button" onclick="addItem()">+ Add Item</button>
 
         <div class="totals-inputs">
             <label>Discount (₹): <input type="text" id="discount" class="numOnly" value="0" /></label>
@@ -110,9 +121,9 @@
             <strong>Grand Total (₹): <span id="grandTotal">0.00</span></strong>
         </div>
 
-        <button type="button" onclick="calculateGrandTotal()">Calculate Grand Total</button>
-        <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
-        <button onclick="downloadPDF()">⬇️ Download PDF</button>
+        <!-- <button class="no-print" type="button" onclick="calculateGrandTotal()">Calculate Grand Total</button> -->
+        <button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <button class="no-print" onclick="downloadPDF()">⬇️ Download PDF</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
