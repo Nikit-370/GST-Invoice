@@ -34,7 +34,7 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   width: 50%;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 /* Items Table */
@@ -186,4 +186,10 @@ body {
 td input.editable-input {
   box-sizing: border-box;
   padding: 4px 6px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
